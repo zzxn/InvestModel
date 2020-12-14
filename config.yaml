@@ -1,0 +1,16 @@
+model:
+    normal: # type: normal
+        roe: # 净资产收益率
+            weight: 0.2
+            min: 8.0  # 最低允许每年净资产收益率
+        pe_ratio: # 市盈率
+            weight: 0.3  # 影响权重
+            sub_weight: # 分项权重
+                ttm: 0.4
+                dynamic: 0.2
+                static: 0.4
+            min: 0.0  # 最低允许市盈率
+        cash_flow: # 现金流
+            weight: 0.4  # 影响权重
+        debt_ratio: # 负债率
+            weight: 0.2  # 影响权重
