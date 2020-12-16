@@ -7,6 +7,8 @@ import pandas as pd
 
 from config import config
 
+entry_count = 0
+
 col_names = ['code', 'name', 'pe_dynamic', 'pe_ttm', 'pe_static',
              'roe15', 'roe16', 'roe17', 'roe18', 'reo19',
              'cash_net_incr15', 'cash_net_incr16', 'cash_net_incr17', 'cash_net_incr18', 'cash_net_incr19',
@@ -41,6 +43,9 @@ def read_table(path: str, col_names: List[str]) -> StringIndexArrayAccessor:
         #         flag = True
         if not flag:
             data.append(line)
+    global entry_count
+    print("{}: {} entries".format(path.split('.')[-2], len(data)))
+    entry_count += len(data)
     data = np.stack(data)
     for line in data:
         for i in range(len(line)):
@@ -129,6 +134,8 @@ def main():
     print(outfile_names)
     for infile, outfile in zip(infile_names, outfile_names):
         process_table(f'./resources/{infile}', f'./out/{outfile}', 'normal')
+
+    print("Processed {} entries.".format(entry_count))
 
 
 if __name__ == '__main__':
